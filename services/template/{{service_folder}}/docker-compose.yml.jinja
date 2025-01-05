@@ -1,0 +1,19 @@
+services:
+
+  {{service_name}}:
+    image: {{service_image}}
+
+    env_file: "${SERVICE_ROOT}/.env"
+
+    ## Base homelab config
+    # volumes:
+    #  - ${SERVICE_ROOT}/storage: # add storage volume here
+    #  - ${SERVICE_ROOT}/config: # add config volume here
+
+    ## Base homelab config
+    hostname: ${SERVICE_HOSTNAME}
+    container_name: ${SERVICE_NAME}
+    network_mode: ${HOMELAB_NETWORK}
+    restart: unless-stopped
+
+networks: {}

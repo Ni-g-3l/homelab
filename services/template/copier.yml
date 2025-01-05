@@ -1,0 +1,15 @@
+service_name:
+  type: str
+  help: Name of the service ? 
+
+service_folder:
+  type: str
+  help: Name of the service folder ? 
+
+service_image:
+  type: str
+  help: Service image identifier ? 
+
+stack_name:
+  type: str
+  help: Service stack ? 
