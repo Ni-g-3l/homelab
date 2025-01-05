@@ -1,0 +1,37 @@
+services:
+
+  beszel:
+    image: henrygd/beszel
+    env_file: "${SERVICE_ROOT}/.env"
+
+    ## Base homelab config
+    volumes:
+      - ${SERVICE_ROOT}/storage:/beszel_data
+
+    ports:
+      - 8090:8090
+
+    ## Base homelab config
+    hostname: ${SERVICE_HOSTNAME}
+    container_name: ${SERVICE_NAME}
+    network_mode: ${HOMELAB_NETWORK}
+    restart: unless-stopped
+
+  beszel-agent:
+    image: henrygd/beszel-agent
+    env_file: "${SERVICE_ROOT}/.env"
+
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${SERVICE_ROOT}/nas/media/.beszel:/extra-filesystems/media:ro
+
+    environment:
+      KEY: '${SERVICE_AGENT_KEY}'
+
+    ## Base homelab config
+    hostname: ${SERVICE_AGENT_HOSTNAME}
+    container_name: ${SERVICE_AGENT_NAME}
+    network_mode: ${HOMELAB_NETWORK}
+    restart: unless-stopped
+
+networks: {}
