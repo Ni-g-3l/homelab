@@ -2,6 +2,23 @@
 
 This repository contains all of the code used to configure npm. You can naviguate throught directories and check how it works.
 
+## Install
+
+First of all, you need to create a docker network to share with all of your services.
+
+```bash
+
+docker network create homelab_network_proxy
+
+```
+
+Then once the service started, you can log to UI on : [127.0.0.1:81](127.0.0.1:81). And connect to with following admin user.
+
+```
+Email: admin@example.com
+Password: changeme
+```
+
 ## Usage
 
 ### Start npm
