@@ -24,6 +24,10 @@ services:
     container_name: ${SERVICE_NAME}
     restart: unless-stopped
 
+    networks:
+      - default
+      - ${HOMELAB_NETWORK}
+
 networks:
   default:
    name: ${SERVICE_NETWORK}
