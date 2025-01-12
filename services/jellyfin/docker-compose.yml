@@ -1,0 +1,36 @@
+services:
+
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+
+    env_file: "${SERVICE_ROOT}/.env"
+
+    environment:
+      PUID: 1000
+      GUID: 1000
+
+    # ports:
+      # - 8096:8096
+
+    ## Base homelab config
+    volumes:
+      - ${SERVICE_ROOT}/storage/media:/data/media
+      - ${SERVICE_ROOT}/storage/cache:/cache
+      - ${SERVICE_ROOT}/config:/config
+      - ${SERVICE_ROOT}/config:/config
+
+    ## Base homelab config
+    hostname: ${SERVICE_HOSTNAME}
+    container_name: ${SERVICE_NAME}
+    restart: unless-stopped
+    
+    networks:
+      - default
+      - ${HOMELAB_NETWORK}
+
+networks:
+  default:
+    name: ${SERVICE_NETWORK}
+  homelab_network_proxy:
+    name: ${HOMELAB_NETWORK}
+    external: true
