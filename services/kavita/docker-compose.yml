@@ -1,0 +1,37 @@
+services:
+
+  kavita:
+    image: lscr.io/linuxserver/kavita:latest
+
+    env_file: "${SERVICE_ROOT}/.env"
+
+    environment:
+      PUID: 1000
+      GUID: 1000
+      DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: true
+
+    # ports:
+    #   - 80:80
+
+    ## Base homelab config
+    volumes:
+      - ${SERVICE_ROOT}/storage/data/manga:/data/manga
+      - ${SERVICE_ROOT}/storage/data/books:/data/books
+      - ${SERVICE_ROOT}/storage/config:/config
+
+    ## Base homelab config
+    hostname: ${SERVICE_HOSTNAME}
+    container_name: ${SERVICE_NAME}
+    restart: unless-stopped
+
+    networks:
+      - default
+      - ${HOMELAB_NETWORK}
+
+networks:
+  default:
+   name: ${SERVICE_NETWORK}
+  homelab_network_proxy:
+   name: ${HOMELAB_NETWORK}
+   external: true
+
