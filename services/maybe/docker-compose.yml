@@ -1,0 +1,72 @@
+services:
+
+  maybe:
+    image: ghcr.io/maybe-finance/maybe:latest
+
+    env_file: "${SERVICE_ROOT}/.env"
+
+    environment:
+      PUID: 1000
+      GUID: 1000
+      SELF_HOSTED: "true"
+      RAILS_FORCE_SSL: "false"
+      RAILS_ASSUME_SSL: "false"
+      GOOD_JOB_EXECUTION_MODE: async
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+      DB_HOST: maybe_postgres
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+    # ports:
+    #   - 80:80
+
+    ## Base homelab config
+    volumes:
+      - maybe_app_storage:/rails/storage
+
+    ## Base homelab config
+    hostname: ${SERVICE_HOSTNAME}
+    container_name: ${SERVICE_NAME}
+    restart: unless-stopped
+
+    networks:
+      - default
+      - ${HOMELAB_NETWORK}
+
+    depends_on:
+      maybe_postgres:
+        condition: service_healthy
+
+  maybe_postgres:
+    env_file: "${SERVICE_ROOT}/.env"
+    image: postgres:16
+    restart: unless-stopped
+    hostname: maybe_postgres
+    container_name: maybe_postgres
+    volumes:
+      - maybe_postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - default
+      
+volumes:
+  maybe_app_storage:
+  maybe_postgres_data:
+
+networks:
+  default:
+   name: ${SERVICE_NETWORK}
+  homelab_network_proxy:
+   name: ${HOMELAB_NETWORK}
+   external: true
+
