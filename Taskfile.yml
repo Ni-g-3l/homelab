@@ -35,3 +35,16 @@ tasks:
       - docker compose down
       - docker compose pull
       - docker compose up -d
+
+  update-all:
+    desc: Update all Docker services
+    cmds:
+      - . .venv/bin/activate
+      - python scripts/runtime/run_commands.py ${CURRENT_DIR}services/ --cmd 'task update'
+
+  restart-all:
+    desc: Restart all Docker services
+    cmds:
+      - . .venv/bin/activate
+      - python scripts/runtime/run_commands.py ${CURRENT_DIR}services/ --cmd 'task down'
+      - python scripts/runtime/run_commands.py ${CURRENT_DIR}services/ --cmd 'task up'
