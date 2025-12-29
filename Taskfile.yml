@@ -1,0 +1,37 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: "3"
+
+tasks:
+  install:
+    desc: "Install homelab environment"
+    cmds:
+      - python -m venv .venv
+      - . .venv/bin/activate
+      - pip install -r requirements.txt
+
+  new:
+    desc: Create new service
+    cmds:
+      - . .venv/bin/activate
+      - copier copy services/template {{.ROOT_DIR}}/services/
+
+  up:
+    dir: "{{.USER_WORKING_DIR}}"
+    desc: Start docker service
+    cmds:
+      - docker compose up -d
+
+  down:
+    dir: "{{.USER_WORKING_DIR}}"
+    desc: Stop docker service
+    cmds:
+      - docker compose down
+
+  update:
+    dir: "{{.USER_WORKING_DIR}}"
+    desc: Update docker service
+    cmds:
+      - docker compose down
+      - docker compose pull
+      - docker compose up -d
