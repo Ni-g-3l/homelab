@@ -1,11 +1,15 @@
 import os
 import subprocess
 
+DOCKER_COMPOSE_FILE = "docker-compose.yml"
+
 
 def run_command_in_services(root, cmd):
     for dir in os.listdir(root):
         dir = os.path.join(root, dir)
         if not os.path.isdir(dir):
+            continue
+        if not os.path.exists(os.path.join(dir, DOCKER_COMPOSE_FILE)):
             continue
         service_directory = os.path.join(root, dir)
         print(f"Run command {cmd} in service '{dir}'")
