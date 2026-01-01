@@ -37,10 +37,12 @@ tasks:
   update-all:
     desc: Update all Docker services
     cmds:
-      - . .venv/bin/activate && python scripts/runtime/run_commands.py ${CURRENT_DIR}services/ --cmd 'task update'
+      - . .venv/bin/activate && python scripts/runtime/run_commands.py {{.ROOT_DIR}}/services --cmd 'task down'
+      - . .venv/bin/activate && python scripts/runtime/run_commands.py {{.ROOT_DIR}}/services --cmd 'task update'
+      - . .venv/bin/activate && python scripts/runtime/run_commands.py {{.ROOT_DIR}}/services --cmd 'task up'
 
   restart-all:
     desc: Restart all Docker services
     cmds:
-      - . .venv/bin/activate && python scripts/runtime/run_commands.py ${CURRENT_DIR}services/ --cmd 'task down'
-      - . .venv/bin/activate && python scripts/runtime/run_commands.py ${CURRENT_DIR}services/ --cmd 'task up'
+      - . .venv/bin/activate && python scripts/runtime/run_commands.py {{.ROOT_DIR}}/services --cmd 'task down'
+      - . .venv/bin/activate && python scripts/runtime/run_commands.py {{.ROOT_DIR}}/services --cmd 'task up'
