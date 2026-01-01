@@ -7,14 +7,12 @@ tasks:
     desc: "Install homelab environment"
     cmds:
       - python -m venv .venv
-      - . .venv/bin/activate
-      - pip install -r requirements.txt
+      - . .venv/bin/activate && pip install -r requirements.txt
 
   new:
     desc: Create new service
     cmds:
-      - . .venv/bin/activate
-      - copier copy services/template {{.ROOT_DIR}}/services/
+      - . .venv/bin/activate && copier copy services/template {{.ROOT_DIR}}/services/
 
   up:
     dir: "{{.USER_WORKING_DIR}}"
@@ -39,12 +37,10 @@ tasks:
   update-all:
     desc: Update all Docker services
     cmds:
-      - . .venv/bin/activate
-      - python scripts/runtime/run_commands.py ${CURRENT_DIR}services/ --cmd 'task update'
+      - . .venv/bin/activate && python scripts/runtime/run_commands.py ${CURRENT_DIR}services/ --cmd 'task update'
 
   restart-all:
     desc: Restart all Docker services
     cmds:
-      - . .venv/bin/activate
-      - python scripts/runtime/run_commands.py ${CURRENT_DIR}services/ --cmd 'task down'
-      - python scripts/runtime/run_commands.py ${CURRENT_DIR}services/ --cmd 'task up'
+      - . .venv/bin/activate && python scripts/runtime/run_commands.py ${CURRENT_DIR}services/ --cmd 'task down'
+      - . .venv/bin/activate && python scripts/runtime/run_commands.py ${CURRENT_DIR}services/ --cmd 'task up'
