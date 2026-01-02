@@ -14,7 +14,12 @@ def run_command_in_services(root, cmd):
         service_directory = os.path.join(root, dir)
         print(f"Run command {cmd} in service '{dir}'")
         try:
-            subprocess.run(cmd.split(" "), cwd=service_directory)
+            subprocess.run(
+                cmd.split(" "),
+                cwd=service_directory,
+                start_new_session=True,
+                shell=True,
+            )
             print("Service started")
         except subprocess.CalledProcessError as e:
             print(
