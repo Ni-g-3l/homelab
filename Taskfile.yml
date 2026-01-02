@@ -37,10 +37,10 @@ tasks:
   update-all:
     desc: Update all Docker services
     cmds:
-      - docker stop $(docker ps -a)
-      - docker update $(docker ps -a)
+      - docker stop $(docker ps -a -q)
+      - docker update $(docker ps -a -q)
 
   restart-all:
     desc: Restart all Docker services
     cmds:
-      - docker restart $(docker ps -a)
+      - docker restart $(docker ps -a -q)
