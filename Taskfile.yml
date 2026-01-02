@@ -40,6 +40,11 @@ tasks:
       - docker stop $(docker ps -a -q)
       - docker update $(docker ps -a -q)
 
+  stop-all:
+    desc: Stop all Docker services
+    cmds:
+      - docker stop $(docker ps -a -q)
+
   restart-all:
     desc: Restart all Docker services
     cmds:
