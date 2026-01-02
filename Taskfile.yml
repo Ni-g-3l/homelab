@@ -37,12 +37,10 @@ tasks:
   update-all:
     desc: Update all Docker services
     cmds:
-      - python scripts/runtime/run_commands.py {{.ROOT_DIR}}/services --cmd 'task down'
-      - python scripts/runtime/run_commands.py {{.ROOT_DIR}}/services --cmd 'task update'
-      - python scripts/runtime/run_commands.py {{.ROOT_DIR}}/services --cmd 'task up'
+      - docker stop $(docker ps -a)
+      - docker update $(docker ps -a)
 
   restart-all:
     desc: Restart all Docker services
     cmds:
-      - python scripts/runtime/run_commands.py {{.ROOT_DIR}}/services --cmd 'task down'
-      - python scripts/runtime/run_commands.py {{.ROOT_DIR}}/services --cmd 'task up'
+      - docker restart $(docker ps -a)
