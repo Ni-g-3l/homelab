@@ -38,7 +38,8 @@ tasks:
     desc: Update all Docker services
     cmds:
       - docker stop $(docker ps -a -q)
-      - python {{.ROOT_DIR}}/scripts/runtime/run_commands.py {{.ROOT_DIR}}/services 'task update'
+      - python {{.ROOT_DIR}}/scripts/runtime/run_commands.py {{.ROOT_DIR}}/services --cmd 'docker compose pull'
+      - docker restart $(docker ps -a -q)
 
   stop-all:
     desc: Stop all Docker services
