@@ -38,7 +38,7 @@ tasks:
     desc: Update all Docker services
     cmds:
       - docker stop $(docker ps -a -q)
-      - docker update $(docker ps -a -q)
+      - python {{.ROOT_DIR}}/scripts/runtime/run_commands.py {{.ROOT_DIR}}/services 'task update'
 
   stop-all:
     desc: Stop all Docker services
