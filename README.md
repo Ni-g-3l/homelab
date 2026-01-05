@@ -26,7 +26,7 @@ This repository contains all information and config files about my selfhosted ho
 ### Deploy new service :
 
 ```bash
-make new
+task new
 ```
 
 This little command will launch a [Copier](https://copier.readthedocs.io/en/latest/) Template and deploy a new service folder inside dedicated service folders.
@@ -37,13 +37,11 @@ Each service deployed with the service template comes with a set of commands to 
 
 ```bash
 # Start container
-
-make # or make up
+task up
 
 # Stop container
-make down
+task down
 
 # Update container
-make update # Update commande can be modified according each service update policies
-
+task update
 ```
