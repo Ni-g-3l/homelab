@@ -1,13 +1,15 @@
 services:
 
   watchtower:
-    image: containrrr/watchtower
+    image: nickfedor/watchtower
 
     env_file: "${SERVICE_ROOT}/.env"
 
     environment:
       PUID: 1000
       GUID: 1000
+      TZ: Europe/Paris
+      WATCHTOWER_CLEANUP: true
 
     # ports:
     #   - 80:80
@@ -15,8 +17,6 @@ services:
     ## Base homelab config
     volumes:
        - /var/run/docker.sock:/var/run/docker.sock
-
-    command: --cleanup --interval 500
 
     ## Base homelab config
     hostname: ${SERVICE_HOSTNAME}
