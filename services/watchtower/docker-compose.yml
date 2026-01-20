@@ -11,7 +11,7 @@ services:
       WATCHTOWER_CLEANUP: true
       WATCHTOWER_NOTIFICATION_REPORT: "true"
       WATCHTOWER_NOTIFICATION_URL: "discord://${DISCORD_TOKEN}@${DISCORD_CHANNEL}"
-      WATCHTOWER_NOTIFICATION_TEMPLATE: "
+      WATCHTOWER_NOTIFICATION_TEMPLATE: |
         {{- if .Report -}}
         {{- with .Report -}}
         {{len .Scanned}} Scanned, {{len .Updated}} Updated, {{len .Failed}} Failed
@@ -31,7 +31,6 @@ services:
         {{- else -}}
         {{range .Entries -}}{{.Message}}{{\"\n\"}}{{- end -}}
         {{- end -}}
-        "
 
     # ports:
     #   - 80:80
