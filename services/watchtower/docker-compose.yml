@@ -1,5 +1,4 @@
 services:
-
   watchtower:
     image: nickfedor/watchtower
 
@@ -10,13 +9,36 @@ services:
       GUID: 1000
       TZ: Europe/Paris
       WATCHTOWER_CLEANUP: true
+      WATCHTOWER_NOTIFICATION_REPORT: "true"
+      WATCHTOWER_NOTIFICATION_URL: "discord://${DISCORD_TOKEN}@${DISCORD_CHANNEL}"
+      WATCHTOWER_NOTIFICATION_TEMPLATE: "
+        {{- if .Report -}}
+        {{- with .Report -}}
+        {{len .Scanned}} Scanned, {{len .Updated}} Updated, {{len .Failed}} Failed
+        {{- range .Updated}}
+        - {{.Name}} ({{.ImageName}}): {{.CurrentImageID.ShortID}} updated to {{.LatestImageID.ShortID}}
+        {{- end -}}
+        {{- range .Fresh}}
+        - {{.Name}} ({{.ImageName}}): {{.State}}
+        {{- end -}}
+        {{- range .Skipped}}
+        - {{.Name}} ({{.ImageName}}): {{.State}}: {{.Error}}
+        {{- end -}}
+        {{- range .Failed}}
+        - {{.Name}} ({{.ImageName}}): {{.State}}: {{.Error}}
+        {{- end -}}
+        {{- end -}}
+        {{- else -}}
+        {{range .Entries -}}{{.Message}}{{\"\n\"}}{{- end -}}
+        {{- end -}}
+        "
 
     # ports:
     #   - 80:80
 
     ## Base homelab config
     volumes:
-       - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock
 
     ## Base homelab config
     hostname: ${SERVICE_HOSTNAME}
@@ -29,8 +51,7 @@ services:
 
 networks:
   default:
-   name: ${SERVICE_NETWORK}
+    name: ${SERVICE_NETWORK}
   homelab_network_proxy:
-   name: ${HOMELAB_NETWORK}
-   external: true
-
+    name: ${HOMELAB_NETWORK}
+    external: true
