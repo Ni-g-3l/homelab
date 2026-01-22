@@ -12,7 +12,7 @@ tasks:
   new:
     desc: Create new service
     cmds:
-      - . .venv/bin/activate && copier copy services/template {{.ROOT_DIR}}/services/
+      - . .venv/bin/activate && copier copy {{.ROOT_DIR}}/resources/service_template {{.ROOT_DIR}}/services/
 
   up:
     dir: "{{.USER_WORKING_DIR}}"
