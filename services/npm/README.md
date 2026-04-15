@@ -1,46 +1,44 @@
-# 🏠 Homelab - npm [![Copier](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-orange.json)](https://github.com/copier-org/copier)
+# 🏠 Homelab - Nginx Proxy Manager
 
-This repository contains all of the code used to configure npm. You can naviguate throught directories and check how it works.
+Reverse proxy with SSL/TLS support and easy web UI.
 
-## Install
+## Configuration
 
-First of all, you need to create a docker network to share with all of your services.
+### Environment Variables
 
-```bash
+| Variable | Description |
+|----------|-------------|
+| `SERVICE_HOSTNAME` | Container hostname |
+| `SERVICE_NAME` | Container name |
 
-docker network create homelab_network_proxy
+### Ports
 
-```
+| Port | Service |
+|------|---------|
+| 80 | HTTP |
+| 443 | HTTPS |
+| 81 | Admin UI |
 
-Then once the service started, you can log to UI on : [127.0.0.1:81](127.0.0.1:81). And connect to with following admin user.
+## Volumes
 
-```
-Email: admin@example.com
-Password: changeme
-```
+- `./storage/data:/data` - NPM data
+- `./storage/letsencrypt:/etc/letsencrypt` - SSL certificates
+
+## First Setup
+
+1. Access the admin UI at `http://<host>:81`
+2. Default credentials: `admin@example.com` / `changeme`
+3. Create a docker network for other services: `docker network create homelab_network_proxy`
 
 ## Usage
 
-### Start npm
-
 ```bash
-make
+# Start service
+task up
+
+# Stop service
+task down
+
+# Update service
+task update
 ```
-
-### Update npm
-
-```bash
-make update
-```
-
-## 🤹 Authors / Contributers / Attributions
-
-* **Ni-g-3l** - *Main Developer* - [Github](https://github.com/Ni-g-3l/)
-
-## 📃 License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details.
-
-## 👏 Acknowledgments
-
-* **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)

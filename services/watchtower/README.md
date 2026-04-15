@@ -1,29 +1,38 @@
-# 🏠 Homelab - watchtower [![Copier](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-orange.json)](https://github.com/copier-org/copier)
+# 🏠 Homelab - Watchtower
 
-This repository contains all of the code used to configure watchtower. You can naviguate throught directories and check how it works.
+Automatic Docker container updates with Discord notifications.
+
+## Configuration
+
+### Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `SERVICE_HOSTNAME` | Container hostname |
+| `SERVICE_NAME` | Container name |
+| `TZ` | Timezone (default: Europe/Paris) |
+| `DISCORD_CHANNEL` | Discord channel ID |
+| `DISCORD_TOKEN` | Discord bot token |
+
+### Features
+
+- Automatic cleanup of old images
+- Discord notifications for updates
+- Detailed update reports
+
+## Volumes
+
+- `/var/run/docker.sock:/var/run/docker.sock` - Docker socket (required for monitoring)
 
 ## Usage
 
-### Start watchtower
-
 ```bash
-make
+# Start service
+task up
+
+# Stop service
+task down
+
+# Update service
+task update
 ```
-
-### Update watchtower
-
-```bash
-make update
-```
-
-## 🤹 Authors / Contributers / Attributions
-
-* **Ni-g-3l** - *Main Developer* - [Github](https://github.com/Ni-g-3l/)
-
-## 📃 License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details.
-
-## 👏 Acknowledgments
-
-* **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)

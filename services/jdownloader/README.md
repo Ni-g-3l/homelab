@@ -1,29 +1,30 @@
-# 🏠 Homelab - jdownloader [![Copier](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-orange.json)](https://github.com/copier-org/copier)
+# 🏠 Homelab - JDownloader
 
-This repository contains all of the code used to configure jdownloader. You can naviguate throught directories and check how it works.
+Download manager for file hosting sites.
+
+## Configuration
+
+### Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `SERVICE_HOSTNAME` | Container hostname |
+| `SERVICE_NAME` | Container name |
+
+## Volumes
+
+- `./storage/config:/config` - Configuration storage
+- `./storage/output:/output` - Download output directory
 
 ## Usage
 
-### Start jdownloader
-
 ```bash
-make
+# Start service
+task up
+
+# Stop service
+task down
+
+# Update service
+task update
 ```
-
-### Update jdownloader
-
-```bash
-make update
-```
-
-## 🤹 Authors / Contributers / Attributions
-
-* **Ni-g-3l** - *Main Developer* - [Github](https://github.com/Ni-g-3l/)
-
-## 📃 License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details.
-
-## 👏 Acknowledgments
-
-* **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)

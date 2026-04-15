@@ -1,41 +1,45 @@
-# 🏠 Homelab - openvpn [![Copier](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-orange.json)](https://github.com/copier-org/copier)
+# 🏠 Homelab - OpenVPN
 
-This repository contains all of the code used to configure openvpn. You can naviguate throught directories and check how it works.
+OpenVPN server for secure remote access.
+
+## Configuration
+
+### Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `SERVICE_HOSTNAME` | Container hostname |
+| `SERVICE_NAME` | Container name |
+
+### Ports
+
+| Port | Protocol |
+|------|----------|
+| 1194 | UDP |
+
+## Volumes
+
+- `./storage/data:/etc/openvpn` - VPN configuration and keys
+
+## Requirements
+
+- Requires `NET_ADMIN` capability
 
 ## Usage
 
-### Init openvpn
-
 ```bash
-make init url=<host url>
+# Initialize VPN
+task init url=<host url>
+
+# Generate client key
+task key mail=<user_mail>
+
+# Start service
+task up
+
+# Stop service
+task down
+
+# Update service
+task update
 ```
-
-### Create key
-
-```bash
-make key mail=<user_mail>
-```
-
-### Start openvpn
-
-```bash
-make
-```
-
-### Update openvpn
-
-```bash
-make update
-```
-
-## 🤹 Authors / Contributers / Attributions
-
-* **Ni-g-3l** - *Main Developer* - [Github](https://github.com/Ni-g-3l/)
-
-## 📃 License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details.
-
-## 👏 Acknowledgments
-
-* **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)

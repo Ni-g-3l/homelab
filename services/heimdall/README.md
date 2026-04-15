@@ -1,29 +1,30 @@
-# 🏠 Homelab - heimdall [![Copier](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-orange.json)](https://github.com/copier-org/copier)
+# 🏠 Homelab - Heimdall
 
-This repository contains all of the code used to configure heimdall. You can naviguate throught directories and check how it works.
+Application dashboard and bookmark manager.
+
+## Configuration
+
+### Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `SERVICE_HOSTNAME` | Container hostname |
+| `SERVICE_NAME` | Container name |
+| `TZ` | Timezone (default: Europe/Paris) |
+
+## Volumes
+
+- `./storage/config:/config` - Configuration storage
 
 ## Usage
 
-### Start heimdall
-
 ```bash
-make
+# Start service
+task up
+
+# Stop service
+task down
+
+# Update service
+task update
 ```
-
-### Update heimdall
-
-```bash
-make update
-```
-
-## 🤹 Authors / Contributers / Attributions
-
-* **Ni-g-3l** - *Main Developer* - [Github](https://github.com/Ni-g-3l/)
-
-## 📃 License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details.
-
-## 👏 Acknowledgments
-
-* **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)

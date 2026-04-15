@@ -1,29 +1,38 @@
-# 🏠 Homelab - beszel [![Copier](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-orange.json)](https://github.com/copier-org/copier)
+# 🏠 Homelab - Beszel
 
-This repository contains all of the code used to configure beszel. You can naviguate throught directories and check how it works.
+Lightweight server monitoring dashboard with agent support.
+
+## Configuration
+
+### Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `SERVICE_HOSTNAME` | Hostname for the Beszel server |
+| `SERVICE_NAME` | Container name |
+| `SERVICE_AGENT_HOSTNAME` | Hostname for the Beszel agent |
+| `SERVICE_AGENT_NAME` | Agent container name |
+| `SERVICE_AGENT_PORT` | Agent port |
+| `SERVICE_AGENT_KEY` | Agent authentication key |
+
+## Services
+
+- **Beszel**: Main monitoring server (ports handled by reverse proxy)
+- **Beszel Agent**: Docker monitoring agent on each host
+
+## Volumes
+
+- `./storage/data:/beszel_data` - Beszel data storage
 
 ## Usage
 
-### Start beszel
-
 ```bash
-make
+# Start services
+task up
+
+# Stop services
+task down
+
+# Update services
+task update
 ```
-
-### Update beszel
-
-```bash
-make update
-```
-
-## 🤹 Authors / Contributers / Attributions
-
-* **Ni-g-3l** - *Main Developer* - [Github](https://github.com/Ni-g-3l/)
-
-## 📃 License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details.
-
-## 👏 Acknowledgments
-
-* **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)

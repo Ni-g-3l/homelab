@@ -1,29 +1,31 @@
-# 🏠 Homelab - jellyfin [![Copier](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-orange.json)](https://github.com/copier-org/copier)
+# 🏠 Homelab - Jellyfin
 
-This repository contains all of the code used to configure jellyfin. You can naviguate throught directories and check how it works.
+Free software media system for streaming movies, TV shows, music, and more.
+
+## Configuration
+
+### Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `SERVICE_HOSTNAME` | Container hostname |
+| `SERVICE_NAME` | Container name |
+
+## Volumes
+
+- `./storage/media:/data/media` - Media files
+- `./storage/cache:/cache` - Transcoding cache
+- `./config:/config` - Application configuration
 
 ## Usage
 
-### Start jellyfin
-
 ```bash
-make
+# Start service
+task up
+
+# Stop service
+task down
+
+# Update service
+task update
 ```
-
-### Update jellyfin
-
-```bash
-make update
-```
-
-## 🤹 Authors / Contributers / Attributions
-
-* **Ni-g-3l** - *Main Developer* - [Github](https://github.com/Ni-g-3l/)
-
-## 📃 License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details.
-
-## 👏 Acknowledgments
-
-* **Billie Thompson** - *README & Contribution Templates* - [PurpleBooth](https://github.com/PurpleBooth)

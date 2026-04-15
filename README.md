@@ -12,14 +12,15 @@ This repository contains all information and config files about my selfhosted ho
 
 ## Available Services
 
-* Reverse Proxy : [README](./services/npm/README.md)
-* Monitoring : [README](./services/beszel/README.md)
-* VPN : [README](./services/openvpn/README.md)
-* MediaCenter : 
-    * Jellyfin : [README](./services/jellyfin/README.md)
-    * Downloader : [README](./services/jdownloader/README.md)
-    * Kavita : [README](./services/kavita/README.md)
-    * Gallery : [README](./services/pygallery/README.md)
+* Reverse Proxy: [Nginx Proxy Manager](./services/npm/README.md)
+* Monitoring: [Beszel](./services/beszel/README.md)
+* VPN: [OpenVPN](./services/openvpn/README.md)
+* Dashboard: [Heimdall](./services/heimdall/README.md)
+* Media: 
+    * [Jellyfin](./services/jellyfin/README.md) - Media server
+    * [JDownloader](./services/jdownloader/README.md) - Download manager
+    * [Fusion](./services/fusion/README.md) - RSS reader
+* Automation: [Watchtower](./services/watchtower/README.md) - Auto-updater
 
 ## How to ? 
 
