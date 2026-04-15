@@ -2,66 +2,88 @@
 
 ## SSH
 
-SSH config file is located at **/etc/ssh/sshd_config**. Here you can setup some extra security ensure the connection to your server will be restricted to you.
-
-### Keys
-
-Use the following procedure to generate an SSH key pair on UNIX and UNIX-like systems:
-
-Run the ssh-keygen command.
+### Generate SSH Key Pair
 
 ```bash
-ssh-keygen -b 2048 -t rsa
+ssh-keygen -b 4096 -t ed25519 -f ~/.ssh/id_homelab -C "homelab key"
 ```
 
-The command prompts you to enter the path to the file in which you want to save the key.
+- Save the private key securely on your client machine
+- Copy the public key to the server:
+  ```bash
+  ssh-copy-id -i ~/.ssh/id_homelab.pub user@server-ip
+  ```
 
-A default path and file name are suggested in parentheses. For example: /$HOME/.ssh/id_rsa. To accept the default path and file name, press Enter. Otherwise, enter the required path and file name, and then press Enter.
+### SSH Configuration
 
-The command prompts you to enter a passphrase.
+Edit `/etc/ssh/sshd_config` and ensure these settings:
 
-The passphrase is not mandatory, however, it is recommended that you specify a passphrase to protect your private key against unauthorized use.
+```
+Port 22
+PermitRootLogin no
+PasswordAuthentication no
+PubkeyAuthentication yes
+MaxAuthTries 3
+```
+
+Restart SSH after changes:
+```bash
+sudo systemctl restart sshd
+```
 
 ## Fail2Ban
 
-Fail2Ban scans log files like /var/log/auth.log and bans IP addresses conducting too many failed login attempts. It does this by updating system firewall rules to reject new connections from those IP addresses, for a configurable amount of time.
+Fail2Ban scans log files and bans IPs with too many failed login attempts.
 
-1. Install fail2ban
+### Installation
 
 ```bash
 sudo apt install fail2ban
 ```
 
-2. Copy config file from repository : [Fail2ban Config](../config/fail2ban/jail.local)
+### Configuration
+
+Copy the jail configuration file:
 
 ```bash
 cp ../config/fail2ban/jail.local /etc/fail2ban/jail.local
+sudo systemctl restart fail2ban
 ```
 
-## UFW
+## UFW (Uncomplicated Firewall)
 
-UFW, or Uncomplicated Firewall, is an interface to iptables that is geared towards simplifying the process of configuring a firewall.
+UFW provides a user-friendly interface for managing iptables firewall rules.
 
-1. Install UFW
+### Installation
 
 ```bash
 sudo apt install ufw
 ```
 
-2. Setting Up Default Policies
+### Default Policies
 
 ```bash
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 ```
 
-3. Allow ssh service
-```bash
-sudo ufw allow ssh
-```
-4. Allow other connections (HTTPS, OpenVPN, etc...)
+### Allow Services
 
 ```bash
-sudo ufw allow http
-sudo ufw allow https
+# SSH (always allow before enabling firewall)
+sudo ufw allow 22/tcp
+
+# Web services
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+
+# OpenVPN
+sudo ufw allow 1194/udp
+```
+
+### Enable Firewall
+
+```bash
+sudo ufw enable
+sudo ufw status verbose
 ```

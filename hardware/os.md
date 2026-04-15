@@ -2,31 +2,32 @@
 
 ## Ubuntu (Minimal)
 
-Download last Ubuntu image from [Ubuntu.com](https://ubuntu.com/download/desktop), flash a USB disk, then on install choose "Only required software".
+Download the latest Ubuntu image from [Ubuntu.com](https://ubuntu.com/download/server), flash a USB disk, then choose "Minimal" installation during setup.
 
-### Update packages
-
-Run the following commands when you get an access to your new ubuntu user's home.
+### Update Packages
 
 ```bash
-sudo apt update
-sudo apt upgrade -Y
+sudo apt update && sudo apt upgrade -y
 ```
 
-### Enable SSH connection 
+### Enable SSH
 
-1. First of all, install **net-tools**
-```bash
-sudo apt install net-tools
-```
+1. Install net-tools
+   ```bash
+   sudo apt install net-tools
+   ```
 
-3. Install OpenSSH Server
-```bash
-sudo apt install openssh-server
-```
+2. Install OpenSSH Server
+   ```bash
+   sudo apt install openssh-server
+   ```
 
-4. Enable SSH on boot
-```bash
-sudo systemctl enable ssh
-```
+3. Enable SSH on boot
+   ```bash
+   sudo systemctl enable ssh
+   ```
 
+4. Verify SSH is running
+   ```bash
+   sudo systemctl status ssh
+   ```
