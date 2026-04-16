@@ -14,16 +14,15 @@ services:
 
     ## Base homelab config
     volumes:
-      - ${SERVICE_ROOT}/storage/media:/data/media
-      - ${SERVICE_ROOT}/storage/cache:/cache
-      - ${SERVICE_ROOT}/config:/config
-      - ${SERVICE_ROOT}/config:/config
+      - jellyfin-media:/data/media:rw
+      - ${SERVICE_ROOT}/storage/cache:/cache:rw
+      - ${SERVICE_ROOT}/config:/config:rw
 
     ## Base homelab config
     hostname: ${SERVICE_HOSTNAME}
     container_name: ${SERVICE_NAME}
     restart: unless-stopped
-    
+
     networks:
       - default
       - ${HOMELAB_NETWORK}
@@ -34,3 +33,11 @@ networks:
   homelab_network_proxy:
     name: ${HOMELAB_NETWORK}
     external: true
+
+volumes:
+  jellyfin-media:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=${NFS_ADDRESS},rsize=8192,wsize=8192,timeo=14,intr
+      device: ${NFS_ADDRESS}:${NFS_VOLUME_PATH}/jellyfin/media
