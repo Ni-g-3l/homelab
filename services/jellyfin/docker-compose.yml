@@ -40,4 +40,4 @@ volumes:
     driver_opts:
       type: nfs
       o: addr=${NFS_ADDRESS},rsize=8192,wsize=8192,timeo=14,intr
-      device: ${NFS_ADDRESS}:${NFS_VOLUME_PATH}/jellyfin/media
+      device: ${NFS_ADDRESS}:${NFS_VOLUME_PATH}
