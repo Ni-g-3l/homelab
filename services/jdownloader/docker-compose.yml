@@ -1,7 +1,30 @@
 services:
+  nfs-wait:
+    image: ubuntu:22.04
+    environment:
+      NFS_ADDRESS: ${NFS_ADDRESS}
+    command: ["sleep", "infinity"]
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "sh",
+          "-c",
+          "apt-get update && apt-get install -y nfs-common && showmount -e $${NFS_ADDRESS}",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - default
 
   jdownloader:
     image: jlesage/jdownloader-2
+    depends_on:
+      nfs-wait:
+        condition: service_healthy
 
     env_file: "${SERVICE_ROOT}/.env"
 
@@ -15,7 +38,7 @@ services:
     ## Base homelab config
     volumes:
       - ${SERVICE_ROOT}/storage/config:/config:rw
-      - ${SERVICE_ROOT}/storage/output:/output:rw
+      - jdownloader-output:/output:rw
 
     ## Base homelab config
     hostname: ${SERVICE_HOSTNAME}
@@ -28,8 +51,15 @@ services:
 
 networks:
   default:
-   name: ${SERVICE_NETWORK}
+    name: ${SERVICE_NETWORK}
   homelab_network_proxy:
-   name: ${HOMELAB_NETWORK}
-   external: true
+    name: ${HOMELAB_NETWORK}
+    external: true
 
+volumes:
+  jdownloader-output:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=${NFS_ADDRESS},rsize=8192,wsize=8192,timeo=14,intr
+      device: ${NFS_ADDRESS}:${NFS_VOLUME_PATH}
