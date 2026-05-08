@@ -4,6 +4,42 @@
 
 This repository contains all information and config files about my selfhosted homelab.
 
+## Architecture
+
+```
+                        ┌──────────────┐
+                        │   Internet   │
+                        └──────┬───────┘
+                               │
+                        ┌──────┴───────┐
+                        ▼              ▼
+                    ┌────────┐  ┌──────────┐
+                    │  NPM   │  │  OpenVPN │
+                    │ 80/443 │  │ 1194/udp │
+                    └───┬────┘  └──────────┘
+                        │
+              ┌─────────┼─────────┬─────────┐
+              │         │         │         │
+              ▼         ▼         ▼         ▼
+          ┌──────┐ ┌────────┐ ┌──────┐ ┌─────────┐
+          │Jelly │ │Heimdall│ │Fusion│ │JDownld  │
+          │ fin  │ │        │ │      │ │ loader  │
+          └──┬───┘ └────────┘ └──────┘ └────┬────┘
+             │                              │
+             └──────────────┬───────────────┘
+                            ▼
+                       ┌────────┐
+                       │  NAS   │
+                       │ (NFS)  │
+                       └────────┘
+
+    Infrastructure (connects to all services above):
+    ┌─────────────────┐  ┌─────────────────┐
+    │   Watchtower    │  │     Beszel      │
+    │  auto-updater   │  │    monitoring   │
+    └─────────────────┘  └─────────────────┘
+```
+
 ## Setup Summary
 
 * [Operating System](./hardware/os.md)
@@ -30,7 +66,7 @@ This repository contains all information and config files about my selfhosted ho
 task new
 ```
 
-This little command will launch a [Copier](https://copier.readthedocs.io/en/latest/) Template and deploy a new service folder inside dedicated service folders.
+This command will launch a [Copier](https://copier.readthedocs.io/en/latest/) template and deploy a new service folder inside `services/`.
 
 ### Manage Service
 
@@ -45,4 +81,21 @@ task down
 
 # Update container
 task update
+```
+
+### Backup
+
+Back up all service configs and data:
+
+```bash
+task backup
+```
+
+### Update All Services
+
+Update all Docker services at once:
+
+```bash
+task update-all
+```
 ```
