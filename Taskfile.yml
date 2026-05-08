@@ -9,6 +9,11 @@ tasks:
       - python -m venv .venv
       - . .venv/bin/activate && pip install -r requirements.txt
 
+  setup:
+    desc: "Run the bootstrap setup script"
+    cmds:
+      - bash {{.ROOT_DIR}}/scripts/bootstrap.sh {{.CLI_ARGS}}
+
   new:
     desc: Create new service
     cmds:

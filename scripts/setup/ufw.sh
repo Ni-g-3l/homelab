@@ -1,20 +1,25 @@
 #!/bin/bash
+set -euo pipefail
 
 echo "Install UFW ----------------------------"
-apt install ufw -y
+sudo apt-get install -y ufw
 
 echo "Setting Up Default Policies ------------"
 
-ufw default deny incoming
-ufw default allow outgoing
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
 
 echo "Allow ssh service ----------------------"
 
-ufw allow ssh
+sudo ufw allow ssh
 
 echo "Allow other connections ----------------"
 
-ufw allow http
-ufw allow https
+sudo ufw allow http
+sudo ufw allow https
+
+echo "Enable firewall ------------------------"
+
+sudo ufw --force enable
 
 echo "Install Done ---------------------------"
