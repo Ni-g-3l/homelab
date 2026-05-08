@@ -1,0 +1,22 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  compose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate Docker Compose files
+        run: |
+          for dir in services/*/; do
+            if [ -f "${dir}docker-compose.yml" ]; then
+              echo "Validating ${dir}docker-compose.yml"
+              docker compose -f "${dir}docker-compose.yml" config --quiet
+            fi
+          done

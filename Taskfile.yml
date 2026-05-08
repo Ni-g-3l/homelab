@@ -49,3 +49,8 @@ tasks:
     desc: Restart all Docker services
     cmds:
       - docker restart $(docker ps -a -q)
+
+  backup:
+    desc: Backup all service configs and data
+    cmds:
+      - python {{.ROOT_DIR}}/scripts/runtime/backup.py {{.ROOT_DIR}} {{.ROOT_DIR}}/backups
