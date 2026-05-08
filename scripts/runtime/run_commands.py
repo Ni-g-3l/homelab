@@ -1,4 +1,5 @@
 import os
+import shlex
 import subprocess
 
 DOCKER_COMPOSE_FILE = "docker-compose.yml"
@@ -15,12 +16,10 @@ def run_command_in_services(root, cmd):
         print(f"Run command {cmd} in service '{dir}'")
         try:
             subprocess.run(
-                cmd.split(" "),
+                shlex.split(cmd),
                 cwd=service_directory,
-                start_new_session=True,
-                shell=True,
             )
-            print("Service started")
+            print("Service updated")
         except subprocess.CalledProcessError as e:
             print(
                 f"Error on command running, Command : '{cmd}', Service Folder : '{service_directory}'"
