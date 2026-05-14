@@ -65,6 +65,7 @@ task install
 * Monitoring: [Beszel](./services/beszel/README.md)
 * VPN: [OpenVPN](./services/openvpn/README.md)
 * Dashboard: [Heimdall](./services/heimdall/README.md)
+* Notes: [Memos](./services/memos/README.md) - Note-taking service
 * Media:
     * [Jellyfin](./services/jellyfin/README.md) - Media server
     * [JDownloader](./services/jdownloader/README.md) - Download manager

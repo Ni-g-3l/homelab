@@ -1,0 +1,33 @@
+services:
+
+  memos:
+    image: neosmemo/memos:stable
+
+    env_file: "${SERVICE_ROOT}/.env"
+
+    environment:
+      PUID: 1000
+      GUID: 1000
+
+    # ports:
+    #   - 5230:5230
+
+    ## Base homelab config
+    volumes:
+      - ${SERVICE_ROOT}/storage/data:/var/opt/memos
+
+    ## Base homelab config
+    hostname: ${SERVICE_HOSTNAME}
+    container_name: ${SERVICE_NAME}
+    restart: unless-stopped
+
+    networks:
+      - default
+      - ${HOMELAB_NETWORK}
+
+networks:
+  default:
+   name: ${SERVICE_NETWORK}
+  homelab_network_proxy:
+   name: ${HOMELAB_NETWORK}
+   external: true
