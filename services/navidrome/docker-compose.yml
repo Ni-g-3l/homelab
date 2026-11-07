@@ -1,0 +1,42 @@
+services:
+
+  navidrome:
+    image: navidrome/navidrome:latest
+
+    env_file: "${SERVICE_ROOT}/.env"
+
+    environment:
+      PUID: 1000
+      GUID: 1000
+
+    # ports:
+    #   - 80:80
+
+    ## Base homelab config
+    volumes:
+      - ${SERVICE_ROOT}/config:/data
+      - navidrome-media:/music:ro
+
+    ## Base homelab config
+    hostname: ${SERVICE_HOSTNAME}
+    container_name: ${SERVICE_NAME}
+    restart: unless-stopped
+
+    networks:
+      - default
+      - ${HOMELAB_NETWORK}
+
+networks:
+  default:
+   name: ${SERVICE_NETWORK}
+  homelab_network_proxy:
+   name: ${HOMELAB_NETWORK}
+   external: true
+
+volumes:
+  navidrome-media:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=${NFS_ADDRESS},rsize=8192,wsize=8192,timeo=14,intr
+      device: ${NFS_ADDRESS}:${NFS_VOLUME_PATH}
