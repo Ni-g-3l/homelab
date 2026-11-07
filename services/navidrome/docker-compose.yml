@@ -14,8 +14,8 @@ services:
 
     ## Base homelab config
     volumes:
-      - ${SERVICE_ROOT}/storage/config:/data
-      - ${SERVICE_ROOT}/storage/music:/music:ro
+      - ${SERVICE_ROOT}/config:/data
+      - navidrome-media:/music:ro
 
     ## Base homelab config
     hostname: ${SERVICE_HOSTNAME}
@@ -32,3 +32,11 @@ networks:
   homelab_network_proxy:
    name: ${HOMELAB_NETWORK}
    external: true
+
+volumes:
+  navidrome-media:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=${NFS_ADDRESS},rsize=8192,wsize=8192,timeo=14,intr
+      device: ${NFS_ADDRESS}:${NFS_VOLUME_PATH}
